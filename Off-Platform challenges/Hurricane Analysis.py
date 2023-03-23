@@ -62,6 +62,7 @@ deaths = [90, 4000, 16, 3103, 179, 184, 408, 682, 5, 1023, 43, 319, 688, 259, 37
 conversion = {"M": 1000000,
               "B": 1000000000}
 
+
 def update_damage(list_of_damage):
     damages_update = []
     for entry in list_of_damage:
@@ -78,42 +79,73 @@ def update_damage(list_of_damage):
 
     return damages_update
 
+
 # test function by updating damages
 damages = update_damage(damages)
 
+
 # 2
 # Create a Table
-def convert_to_table_of_hurricans(names, months, years, max_sustained_winds, areas_affected, damages, deaths):
+def create_dictionary(hurr_names, hurr_months, hurr_years, hurr_max_sustained_winds,
+                      hurr_areas_affected, hurr_damages, hurr_deaths):
     hurricans = {}
-    hurricans_len = len(names)
+    hurricans_len = len(hurr_names)
     for i in range(hurricans_len):
-        hurricans[names[i]] = {
-            "Name": names[i],
-            "Month": months[i],
-            "Year": years[i],
-            "Max Sustainled Wind": max_sustained_winds[i],
-            "Areas Affected": areas_affected[i],
-            "Damage": damages[i],
-            "Deaths": deaths[i]
+        hurricans[hurr_names[i]] = {
+            "Name": hurr_names[i],
+            "Month": hurr_months[i],
+            "Year": hurr_years[i],
+            "Max Sustainled Wind": hurr_max_sustained_winds[i],
+            "Areas Affected": hurr_areas_affected[i],
+            "Damage": hurr_damages[i],
+            "Deaths": hurr_deaths[i]
         }
     return hurricans
 
-hurricanes_table = convert_to_table_of_hurricans(names, months, years, max_sustained_winds, areas_affected, damages, deaths)
-print(hurricanes_table)
 
 # Create and view the hurricanes dictionary
+hurricanes = create_dictionary(names, months, years, max_sustained_winds, areas_affected, damages,
+                               deaths)
+print(hurricanes)
+
 
 # 3
 # Organizing by Year
+def create_year_dictionary(hurricanes):
+    """Convert dictionary with hurricane name as key to a new dictionary with hurricane year as the key and return new dictionary."""
+    hurricanes_by_year = dict()
+    for cane in hurricanes:
+        current_year = hurricanes[cane]['Year']
+        current_cane = hurricanes[cane]
+        if current_year not in hurricanes_by_year:
+            hurricanes_by_year[current_year] = [current_cane]
+        else:
+            hurricanes_by_year[current_year].append(current_cane)
+    return hurricanes_by_year
+
 
 # create a new dictionary of hurricanes with year and key
+hurricanes_by_year = create_year_dictionary(hurricanes)
+print(hurricanes_by_year[1932])
 
 
 # 4
 # Counting Damaged Areas
+def count_affected_areas(hurricanes):
+    """Find the count of affected areas across all hurricanes and return as a dictionary with the affected areas as keys."""
+    affected_areas_count = {}
+    for cane in hurricanes:
+        for area in hurricanes[cane]['Areas Affected']:
+            if area not in affected_areas_count:
+                affected_areas_count[area] = 1
+            else:
+                affected_areas_count[area] += 1
+    return affected_areas_count
+
 
 # create dictionary of areas to store the number of hurricanes involved in
-
+affected_areas_count = count_affected_areas(hurricanes)
+print(affected_areas_count)
 
 # 5
 # Calculating Maximum Hurricane Count
