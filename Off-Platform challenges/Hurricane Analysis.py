@@ -149,7 +149,7 @@ print(affected_areas_count)
 
 # 5
 # Calculating Maximum Hurricane Count
-def max_affected_area(affected_areas):
+def calculate_most_affected_area(affected_areas):
     max_area = "Louisiana America"
     max_count = 1
     for affected_area in affected_areas:
@@ -158,16 +158,25 @@ def max_affected_area(affected_areas):
             max_count = affected_areas.get(affected_area)
     return max_area, max_count
 
-most_affected_area = max_affected_area(affected_areas_count)
+most_affected_area = calculate_most_affected_area(affected_areas_count)
 print(most_affected_area)
 # find most frequently affected area and the number of hurricanes involved in
 
 
 # 6
 # Calculating the Deadliest Hurricane
+def calculate_max_vixtims(list_of_hurricanes):
+    max_mortality_cane = "Cuba I"
+    max_mortality = 0
+    for cane in list_of_hurricanes:
+        if hurricanes[cane]['Deaths'] > max_mortality:
+            max_mortality_cane = cane
+            max_mortality = hurricanes[cane]['Deaths']
+    return max_mortality_cane, max_mortality
 
 # find highest mortality hurricane and the number of deaths
-
+most_victims_hurricane = calculate_max_vixtims(hurricanes)
+print(most_victims_hurricane)
 # 7
 # Rating Hurricanes by Mortality
 
